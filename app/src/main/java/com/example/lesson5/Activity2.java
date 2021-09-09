@@ -9,6 +9,7 @@ import androidx.fragment.app.FragmentStatePagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,6 +30,15 @@ public class Activity2 extends AppCompatActivity {
 
         TabLayout tabLayout = findViewById(R.id.tab_layout);
         tabLayout.setupWithViewPager(viewPager);
+
+        //lay du lieu tu Main Activity va log ra
+        String sData1 = getIntent().getStringExtra(MainActivity.KEY_DATA1);
+        int iData2 = getIntent().getIntExtra(MainActivity.KEY_DATA2, 0);
+        Student student = (Student) getIntent().getSerializableExtra(MainActivity.KEY_DATA3);
+
+        Log.d("Activity2", sData1);
+        Log.d("Activity2", iData2 + "");
+        Log.d("Activity2", student.toString());
     }
 
     DemoCollectionPagerAdapter demoCollectionPagerAdapter;

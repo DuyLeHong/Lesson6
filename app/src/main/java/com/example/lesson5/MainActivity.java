@@ -12,6 +12,10 @@ import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
+    public static String KEY_DATA1 = "KEY_DATA1";
+    public static String KEY_DATA2 = "KEY_DATA2";
+    public static String KEY_DATA3 = "KEY_DATA3";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,8 +29,13 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 // display a message by using a Toast
                 Toast.makeText(getApplicationContext(), "Activity's Button", Toast.LENGTH_LONG).show();
-                
-                startActivity(new Intent(getApplicationContext(), Activity2.class));
+
+                Intent in = new Intent(getApplicationContext(), Activity2.class);
+                in.putExtra(KEY_DATA1, "String value tu Main Activity");
+                in.putExtra(KEY_DATA2, 100);
+                in.putExtra(KEY_DATA3, new Student("Tran Tuan Long", 25));
+
+                startActivity(in);
             }
         });
 
