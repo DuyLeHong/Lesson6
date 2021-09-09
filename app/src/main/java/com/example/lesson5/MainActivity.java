@@ -1,14 +1,21 @@
 package com.example.lesson5;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 
+import android.Manifest;
 import android.app.FragmentManager;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -44,6 +51,40 @@ public class MainActivity extends AppCompatActivity {
 
         SimpleFragment simpleFm = (SimpleFragment) fmr.findFragmentById(R.id.fragments);
         simpleFm.setupInfo();
+
+        checkAndRequestPermissionIfNeeded();
+
+    }
+
+    private void checkAndRequestPermissionIfNeeded() {
+        String[] params = null;
+        String writeExternalStorage = Manifest.permission.WRITE_EXTERNAL_STORAGE;
+        String readExternalStorage = Manifest.permission.READ_EXTERNAL_STORAGE;
+
+        int hasWriteExternalStoragePermission;
+
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            hasWriteExternalStoragePermission = PackageManager.PERMISSION_GRANTED;
+        } else {
+            hasWriteExternalStoragePermission = ActivityCompat.checkSelfPermission(this, writeExternalStorage);
+        }
+
+        int hasReadExternalStoragePermission = ActivityCompat.checkSelfPermission(this, readExternalStorage);
+
+        List<String> permissions = new ArrayList<>();
+
+        if (hasWriteExternalStoragePermission != PackageManager.PERMISSION_GRANTED)
+            permissions.add(writeExternalStorage);
+        if (hasReadExternalStoragePermission != PackageManager.PERMISSION_GRANTED)
+            permissions.add(readExternalStorage);
+
+        if (!permissions.isEmpty()) {
+            params = permissions.toArray(new String[permissions.size()]);
+        }
+        if (params != null && params.length > 0) {
+            ActivityCompat.requestPermissions(MainActivity.this, params, 123);
+        } else {
+        }
     }
 
     @Override
