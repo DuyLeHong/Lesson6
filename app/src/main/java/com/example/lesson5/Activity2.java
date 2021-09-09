@@ -8,6 +8,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -18,6 +19,10 @@ import android.widget.TextView;
 import com.google.android.material.tabs.TabLayout;
 
 public class Activity2 extends AppCompatActivity {
+
+    public static final String AC2_KEY_DATA1 = "AC2_KEY_DATA1";
+    public static final String AC2_KEY_DATA2 = "AC2_KEY_DATA2";
+    public static final String AC2_KEY_DATA3 = "AC2_KEY_DATA3";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +44,20 @@ public class Activity2 extends AppCompatActivity {
         Log.d("Activity2", sData1);
         Log.d("Activity2", iData2 + "");
         Log.d("Activity2", student.toString());
+
+
+
+    }
+
+    @Override
+    public void onBackPressed() {
+
+        Intent in = getIntent();
+        in.putExtra(AC2_KEY_DATA1, "Du lieu truyen ve tu Activity2");
+
+        setResult(RESULT_OK, in);
+
+        super.onBackPressed();
     }
 
     DemoCollectionPagerAdapter demoCollectionPagerAdapter;

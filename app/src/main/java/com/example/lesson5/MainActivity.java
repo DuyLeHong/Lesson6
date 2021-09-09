@@ -12,9 +12,10 @@ import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
-    public static String KEY_DATA1 = "KEY_DATA1";
-    public static String KEY_DATA2 = "KEY_DATA2";
-    public static String KEY_DATA3 = "KEY_DATA3";
+    private static final int REQUEST_CODE_TO_ACTIVITY2 = 101;
+    public static final String KEY_DATA1 = "KEY_DATA1";
+    public static final String KEY_DATA2 = "KEY_DATA2";
+    public static final String KEY_DATA3 = "KEY_DATA3";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
                 in.putExtra(KEY_DATA2, 100);
                 in.putExtra(KEY_DATA3, new Student("Tran Tuan Long", 25));
 
-                startActivity(in);
+                startActivityForResult(in, REQUEST_CODE_TO_ACTIVITY2);
             }
         });
 
@@ -43,7 +44,18 @@ public class MainActivity extends AppCompatActivity {
 
         SimpleFragment simpleFm = (SimpleFragment) fmr.findFragmentById(R.id.fragments);
         simpleFm.setupInfo();
+    }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_OK && requestCode == REQUEST_CODE_TO_ACTIVITY2) {
+
+            String sData = data.getStringExtra(Activity2.AC2_KEY_DATA1);
+
+            Log.d(MainActivity.class.getName(), sData);
+
+        }
     }
 
     public void doSomeThing() {
