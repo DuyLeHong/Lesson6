@@ -1,5 +1,6 @@
 package com.example.lesson5;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
@@ -61,6 +62,8 @@ public class MainActivity extends AppCompatActivity { //Update - Android 21
         String writeExternalStorage = Manifest.permission.WRITE_EXTERNAL_STORAGE;
         String readExternalStorage = Manifest.permission.READ_EXTERNAL_STORAGE;
 
+        String cameraPermission = Manifest.permission.CAMERA;
+
         int hasWriteExternalStoragePermission;
 
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
@@ -71,12 +74,16 @@ public class MainActivity extends AppCompatActivity { //Update - Android 21
 
         int hasReadExternalStoragePermission = ActivityCompat.checkSelfPermission(this, readExternalStorage);
 
+        int hasCameraPermission = ActivityCompat.checkSelfPermission(this, cameraPermission);
+
         List<String> permissions = new ArrayList<>();
 
         if (hasWriteExternalStoragePermission != PackageManager.PERMISSION_GRANTED)
             permissions.add(writeExternalStorage);
         if (hasReadExternalStoragePermission != PackageManager.PERMISSION_GRANTED)
             permissions.add(readExternalStorage);
+        if (hasCameraPermission != PackageManager.PERMISSION_GRANTED)
+            permissions.add(cameraPermission);
 
         if (!permissions.isEmpty()) {
             params = permissions.toArray(new String[permissions.size()]);
@@ -96,6 +103,15 @@ public class MainActivity extends AppCompatActivity { //Update - Android 21
 
             Log.d(MainActivity.class.getName(), sData);
 
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+        if (requestCode == 123) {
+            //checkAndRequestPermissionIfNeeded();
         }
     }
 
@@ -122,6 +138,8 @@ public class MainActivity extends AppCompatActivity { //Update - Android 21
         super.onStop();
 
     }
+
+
 
     @Override
     protected void onDestroy() {
