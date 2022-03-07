@@ -17,7 +17,7 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity { //Update - Android 21
 
     private static final int REQUEST_CODE_TO_ACTIVITY2 = 101;
     public static final String KEY_DATA1 = "KEY_DATA1";
