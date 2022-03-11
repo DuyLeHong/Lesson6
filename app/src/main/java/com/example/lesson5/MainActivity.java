@@ -3,9 +3,9 @@ package com.example.lesson5;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
+import androidx.fragment.app.FragmentManager;
 
 import android.Manifest;
-import android.app.FragmentManager;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
@@ -48,10 +48,10 @@ public class MainActivity extends AppCompatActivity { //Update - Android 21
             }
         });
 
-        FragmentManager fmr = getFragmentManager();
+        FragmentManager fmr = getSupportFragmentManager();
 
-        SimpleFragment simpleFm = (SimpleFragment) fmr.findFragmentById(R.id.fragments);
-        simpleFm.setupInfo();
+        MainScreenFragment mainScreenFragment = (MainScreenFragment) fmr.findFragmentById(R.id.fragments);
+        //simpleFm.setupInfo();
 
         checkAndRequestPermissionIfNeeded();
 

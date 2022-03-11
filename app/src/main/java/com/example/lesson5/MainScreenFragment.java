@@ -1,30 +1,25 @@
 package com.example.lesson5;
 
-import android.app.Fragment;
-import android.content.Intent;
 import android.os.Bundle;
-import android.os.Environment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.core.content.FileProvider;
+import androidx.fragment.app.Fragment;
 
-import java.io.File;
-
-
-public class SimpleFragment extends Fragment {
+public class MainScreenFragment  extends Fragment {
 
     View view;
     Button shareImageButton;
 
+
+    @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_simple, container, false);
         // get the reference of Button
@@ -35,40 +30,16 @@ public class SimpleFragment extends Fragment {
             public void onClick(View v) {
                 // display a message by using a Toast
 
-                shareImage();
+                Toast.makeText(getContext(), "MainScreenFragment share image", Toast.LENGTH_SHORT).show();
+
             }
         });
         return view;
     }
 
-    private void shareImage() {
-        Intent intent = new Intent(Intent.ACTION_SEND);
-        intent.setType("image/*");
-
-        // can thay duong dan anh de chay duoc
-        File fImageToShare =
-                new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS),
-                        "banner_2022_android-1024x1024.jpg");
-
-        intent.putExtra(Intent.EXTRA_STREAM, FileProvider.getUriForFile(getActivity(),
-                getActivity().getPackageName(),
-                fImageToShare));
-
-        //startActivity(Intent.createChooser(intent,"Chia se voi"));
-        startActivity(intent);
-    }
-
-    public void setupInfo() {
-        Log.d("AAA", "setup info");
-    }
-
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-
-        MainActivity ac = (MainActivity) getActivity();
-
-        ac.doSomeThing();
     }
 
     @Override
@@ -103,6 +74,4 @@ public class SimpleFragment extends Fragment {
     public void onDetach() {
         super.onDetach();
     }
-
-
 }
