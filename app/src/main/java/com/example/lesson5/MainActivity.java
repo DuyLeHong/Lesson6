@@ -51,6 +51,10 @@ public class MainActivity extends AppCompatActivity { //Update - Android 21
         FragmentManager fmr = getSupportFragmentManager();
 
         MainScreenFragment mainScreenFragment = (MainScreenFragment) fmr.findFragmentById(R.id.fragments);
+
+        Bundle bundle = new Bundle();
+        bundle.putString("data", "data tu MainActivity");
+        mainScreenFragment.setArguments(bundle);
         //simpleFm.setupInfo();
 
         checkAndRequestPermissionIfNeeded();

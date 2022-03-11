@@ -30,7 +30,10 @@ public class MainScreenFragment  extends Fragment {
             public void onClick(View v) {
                 // display a message by using a Toast
 
-                Toast.makeText(getContext(), "MainScreenFragment share image", Toast.LENGTH_SHORT).show();
+                Bundle bundle = getArguments();
+                String sData = bundle.getString("data");
+
+                Toast.makeText(getContext(), sData, Toast.LENGTH_SHORT).show();
 
             }
         });
@@ -38,9 +41,18 @@ public class MainScreenFragment  extends Fragment {
     }
 
     @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        MainActivity ac = (MainActivity) getActivity();
+
+        ac.doSomeThing();
     }
+
+//    @Override
+//    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+//        super.onActivityCreated(savedInstanceState);
+//    }
 
     @Override
     public void onResume() {

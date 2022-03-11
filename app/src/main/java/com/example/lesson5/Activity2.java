@@ -69,24 +69,35 @@ public class Activity2 extends AppCompatActivity {
             super(fm);
         }
 
+        @NonNull
         @Override
-        public Fragment getItem(int i) {
+        public Fragment getItem(int position) {
             Fragment fragment = new DemoObjectFragment();
             Bundle args = new Bundle();
             // Our object is just an integer :-P
-            args.putInt(DemoObjectFragment.ARG_OBJECT, i + 1);
+            args.putInt(DemoObjectFragment.ARG_OBJECT, position + 1);
             fragment.setArguments(args);
             return fragment;
         }
 
+//        @Override
+//        public Fragment getItem(int i) {
+//            Fragment fragment = new DemoObjectFragment();
+//            Bundle args = new Bundle();
+//            // Our object is just an integer :-P
+//            args.putInt(DemoObjectFragment.ARG_OBJECT, i + 1);
+//            fragment.setArguments(args);
+//            return fragment;
+//        }
+
         @Override
         public int getCount() {
-            return 3;
+            return 5;
         }
 
         @Override
         public CharSequence getPageTitle(int position) {
-            return "TEN TRANG " + (position + 1);
+            return "TRANG " + (position + 1);
         }
     }
 
