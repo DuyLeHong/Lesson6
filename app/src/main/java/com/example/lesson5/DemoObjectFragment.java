@@ -10,6 +10,9 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.google.android.material.tabs.TabLayout;
+import com.google.android.material.tabs.TabLayoutMediator;
+
 public class DemoObjectFragment extends Fragment {
     public static final String ARG_OBJECT = "object";
 
@@ -24,5 +27,7 @@ public class DemoObjectFragment extends Fragment {
         Bundle args = getArguments();
         ((TextView) view.findViewById(R.id.tv))
                 .setText(Integer.toString(args.getInt(ARG_OBJECT)));
+
+
     }
 }

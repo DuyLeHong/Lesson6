@@ -4,9 +4,11 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 import androidx.viewpager.widget.ViewPager;
+import androidx.viewpager2.widget.ViewPager2;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -17,6 +19,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.google.android.material.tabs.TabLayout;
+import com.google.android.material.tabs.TabLayoutMediator;
 
 public class Activity2 extends AppCompatActivity {
 
@@ -29,12 +32,17 @@ public class Activity2 extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout_activity2);
 
-        demoCollectionPagerAdapter = new DemoCollectionPagerAdapter(getSupportFragmentManager());
+        demoCollectionPagerAdapter = new DemoCollectionPagerAdapter(Activity2.this);
         viewPager = findViewById(R.id.pager);
         viewPager.setAdapter(demoCollectionPagerAdapter);
 
+        //TabLayout tabLayout = findViewById(R.id.tab_layout);
+        //tabLayout.setupWithViewPager(viewPager);
+
         TabLayout tabLayout = findViewById(R.id.tab_layout);
-        tabLayout.setupWithViewPager(viewPager);
+        new TabLayoutMediator(tabLayout, findViewById(R.id.pager),
+                (tab, position) -> tab.setText("Trang " + (position + 1))
+        ).attach();
 
         //lay du lieu tu Main Activity va log ra
         String sData1 = getIntent().getStringExtra(MainActivity.KEY_DATA1);
@@ -61,24 +69,17 @@ public class Activity2 extends AppCompatActivity {
     }
 
     DemoCollectionPagerAdapter demoCollectionPagerAdapter;
-    ViewPager viewPager;
+    ViewPager2 viewPager;
 
 
-    public class DemoCollectionPagerAdapter extends FragmentStatePagerAdapter {
-        public DemoCollectionPagerAdapter(FragmentManager fm) {
-            super(fm);
+    public class DemoCollectionPagerAdapter extends androidx.viewpager2.adapter.FragmentStateAdapter {
+        public DemoCollectionPagerAdapter(@NonNull FragmentActivity fragmentActivity) {
+            super(fragmentActivity);
         }
+//        public DemoCollectionPagerAdapter(FragmentManager fm) {
+//            super(fm);
+//        }
 
-        @NonNull
-        @Override
-        public Fragment getItem(int position) {
-            Fragment fragment = new DemoObjectFragment();
-            Bundle args = new Bundle();
-            // Our object is just an integer :-P
-            args.putInt(DemoObjectFragment.ARG_OBJECT, position + 1);
-            fragment.setArguments(args);
-            return fragment;
-        }
 
 //        @Override
 //        public Fragment getItem(int i) {
@@ -90,14 +91,30 @@ public class Activity2 extends AppCompatActivity {
 //            return fragment;
 //        }
 
+//        @Override
+//        public int getCount() {
+//            return 5;
+//        }
+
+//        @Override
+//        public CharSequence getPageTitle(int position) {
+//            return "TRANG " + (position + 1);
+//        }
+
+        @NonNull
         @Override
-        public int getCount() {
-            return 5;
+        public Fragment createFragment(int position) {
+            Fragment fragment = new DemoObjectFragment();
+            Bundle args = new Bundle();
+            // Our object is just an integer :-P
+            args.putInt(DemoObjectFragment.ARG_OBJECT, position + 1);
+            fragment.setArguments(args);
+            return fragment;
         }
 
         @Override
-        public CharSequence getPageTitle(int position) {
-            return "TRANG " + (position + 1);
+        public int getItemCount() {
+            return 5;
         }
     }
 
